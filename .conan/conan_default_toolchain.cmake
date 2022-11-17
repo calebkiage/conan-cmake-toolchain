@@ -46,6 +46,7 @@ function(get_install_args)
     # Set the build type based on CMake options
     list(APPEND conan_install_args "--settings:build" "build_type=${_build_type}" "--settings:host" "build_type=${_build_type}")
 
+    # TODO: Is it better to run conan show profile to get the compiler name?
     if("${CMAKE_GENERATOR}" MATCHES "Visual Studio.*")
         if ("${_build_type}" STREQUAL "Debug")
             set(conan_install_args "${conan_install_args};--settings:build;compiler.runtime_type=Debug")
