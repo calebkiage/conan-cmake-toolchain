@@ -16,7 +16,7 @@ function(get_install_args)
     set(conan_install_args "")
 
     # Use new conan cmake generators.
-    list(APPEND conan_install_args install ${CMAKE_SOURCE_DIR} --generator CMakeDeps --generator CMakeToolchain --build missing --update)
+    list(APPEND conan_install_args install ${CMAKE_SOURCE_DIR} --generator CMakeDeps --generator CMakeToolchain --build missing)
 
     if(CMAKE_GENERATOR)
         list(APPEND conan_install_args "--conf:host" "tools.cmake.cmaketoolchain:generator=${CMAKE_GENERATOR}")
