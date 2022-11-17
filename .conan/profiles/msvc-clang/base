@@ -1,0 +1,15 @@
+# Shared machine options go here (host + build common options)
+
+[settings]
+os=Windows
+arch=x86_64
+build_type=Release
+compiler=clang
+compiler.cppstd=14
+compiler.runtime=dynamic
+compiler.runtime_version=v141
+compiler.runtime_type=Release
+compiler.version=15
+
+[conf]
+tools.microsoft.msbuild:installation_path = C:\Program Files\Microsoft Visual Studio\2022\Enterprise
