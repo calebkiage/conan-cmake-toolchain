@@ -1,4 +1,4 @@
-function(get_install_args)
+function(_get_install_args)
     set(optionArgs "")
     set(oneValueArgs "BUILD_TYPE;OUTPUT_VARIABLE")
     set(miltiValueArgs "")
@@ -11,12 +11,11 @@ function(get_install_args)
     if(NOT _build_type)
         message(FATAL_ERROR "Build type should be defined")
     endif()
-    
 
     set(conan_install_args "")
 
     # Use new conan cmake generators.
-    list(APPEND conan_install_args install ${CMAKE_SOURCE_DIR} --generator CMakeDeps --generator CMakeToolchain --build missing)
+    list(APPEND conan_install_args install ${CMAKE_SOURCE_DIR} --install-folder ${CMAKE_BINARY_DIR} --generator CMakeDeps --generator CMakeToolchain --build missing)
 
     if(CMAKE_GENERATOR)
         list(APPEND conan_install_args "--conf:host" "tools.cmake.cmaketoolchain:generator=${CMAKE_GENERATOR}")
@@ -77,17 +76,20 @@ function(enable_conan)
 
     get_property(is_multi GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
 
-    if (is_multi AND CMAKE_CONFIGURATION_TYPES)
+    if (is_multi)
         foreach (type ${CMAKE_CONFIGURATION_TYPES})
-            get_install_args(BUILD_TYPE "${type}" OUTPUT_VARIABLE conan_install_args)
+            _get_install_args(BUILD_TYPE "${type}" OUTPUT_VARIABLE conan_install_args)
             
-            # message("\nCommand: ${CONAN_PATH} ${conan_install_args};--build_type;${type}\n\n")
+            #message("\nCommand: ${CONAN_PATH} ${conan_install_args}\n\n")
             execute_process(COMMAND ${CONAN_PATH} ${conan_install_args})
         endforeach ()
     else ()
         if(CMAKE_BUILD_TYPE)
-            get_install_args(BUILD_TYPE "${CMAKE_BUILD_TYPE}" OUTPUT_VARIABLE conan_install_args)
+            _get_install_args(BUILD_TYPE "${CMAKE_BUILD_TYPE}" OUTPUT_VARIABLE conan_install_args)
+        else()
+            message(FATAL_ERROR "No CMake build type specified.\nPlease set a build type\ne.g.-DCMAKE_BUILD_TYPE=Release\n")
         endif()
+        #message("\nCommand: ${CONAN_PATH} ${conan_install_args}\n\n")
         execute_process(COMMAND ${CONAN_PATH} ${conan_install_args})
     endif ()
 endfunction()
