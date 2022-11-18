@@ -13,9 +13,11 @@
             "hidden": true,
             "toolchainFile": "${sourceDir}/.conan/conan_default_toolchain.cmake",
             "cacheVariables": {
+                "CONAN_BUILD_PACKAGES": "fmt",
                 "CONAN_BUILD_PROFILE": "${sourceDir}/.conan/profiles/${presetName}/build",
                 "CONAN_HOST_PROFILE": "${sourceDir}/.conan/profiles/${presetName}/host",
-                "CONAN_TOOLCHAIN_FILE": "${sourceDir}/build/${presetName}/conan_toolchain.cmake"
+                "CONAN_TOOLCHAIN_FILE": "${sourceDir}/build/${presetName}/conan_toolchain.cmake",
+                "BUILD_SHARED_LIBS": true
             }
         },
         {
@@ -44,6 +46,11 @@
             "name": "default",
             "configurePreset": "default",
             "configuration": "Debug"
+        },
+        {
+            "name": "release",
+            "configurePreset": "default",
+            "configuration": "Release"
         },
         {
             "name": "clang",
