@@ -13,7 +13,7 @@
             "hidden": true,
             "toolchainFile": "${sourceDir}/.conan/conan_default_toolchain.cmake",
             "cacheVariables": {
-                "CONAN_BUILD_PACKAGES": "fmt",
+                "CONAN_FORCE_BUILD_PACKAGES": "OFF",
                 "CONAN_BUILD_PROFILE": "${sourceDir}/.conan/profiles/${presetName}/build",
                 "CONAN_HOST_PROFILE": "${sourceDir}/.conan/profiles/${presetName}/host",
                 "CONAN_TOOLCHAIN_FILE": "${sourceDir}/build/${presetName}/conan_toolchain.cmake",
@@ -24,14 +24,6 @@
             "name": "default",
             "generator": "Visual Studio 17 2022",
             "inherits": "base"
-        },
-        {
-            "name": "msvc-clang",
-            "generator": "Ninja",
-            "inherits": "base",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug"
-            }
         },
         {
             "name": "mingw",
@@ -51,11 +43,6 @@
             "name": "release",
             "configurePreset": "default",
             "configuration": "Release"
-        },
-        {
-            "name": "clang",
-            "configurePreset": "clang",
-            "configuration": "Debug"
         }
     ]
 }
