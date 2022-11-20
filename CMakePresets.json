@@ -16,8 +16,10 @@
                 "CONAN_FORCE_BUILD_PACKAGES": "OFF",
                 "CONAN_BUILD_PROFILE": "${sourceDir}/.conan/profiles/${presetName}/build",
                 "CONAN_HOST_PROFILE": "${sourceDir}/.conan/profiles/${presetName}/host",
-                "CONAN_TOOLCHAIN_FILE": "${sourceDir}/build/${presetName}/conan_toolchain.cmake",
                 "BUILD_SHARED_LIBS": true
+            },
+            "environment": {
+                "PATH": "$penv{PATH};${sourceDir}/build/${presetName}/.conan_imports/bin"
             }
         },
         {

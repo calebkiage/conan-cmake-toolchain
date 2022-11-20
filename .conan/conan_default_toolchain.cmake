@@ -94,7 +94,7 @@ function(enable_conan)
         foreach (type ${CMAKE_CONFIGURATION_TYPES})
             _get_install_args(BUILD_TYPE "${type}" OUTPUT_VARIABLE conan_install_args)
             
-            message("\nCommand: ${CONAN_PATH} ${conan_install_args}\n\n")
+            # message("\nCommand: ${CONAN_PATH} ${conan_install_args}\n\n")
             execute_process(COMMAND ${CONAN_PATH} ${conan_install_args})
         endforeach ()
     else ()
