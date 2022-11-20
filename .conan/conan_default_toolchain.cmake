@@ -1,3 +1,12 @@
+# Check for a conanfile before doing any processing. Prevents running the conan
+# logic in directories with no conan files. Fixes issues with importing during
+# cmake's compiler detection steps
+find_file(CONAN_FILE_PATH NAMES conanfile.py conanfile.txt PATHS ${CMAKE_SOURCE_DIR} NO_DEFAULT_PATH)
+
+if (NOT CONAN_FILE_PATH)
+    return()
+endif()
+
 function(_get_install_args)
     set(optionArgs "")
     set(oneValueArgs "BUILD_TYPE;OUTPUT_VARIABLE")
@@ -16,6 +25,10 @@ function(_get_install_args)
 
     # Use new conan cmake generators.
     list(APPEND conan_install_args install ${CMAKE_SOURCE_DIR} --install-folder ${CMAKE_BINARY_DIR})
+
+    if (BUILD_SHARED_LIBS)
+        set(conan_install_args "${conan_install_args};--options:host;build_shared=True")
+    endif()
 
     if (CONAN_FORCE_BUILD_PACKAGES)
         foreach(_package ${CONAN_FORCE_BUILD_PACKAGES})
@@ -60,7 +73,7 @@ function(_get_install_args)
             set(conan_install_args "${conan_install_args};--settings:host;compiler.runtime_type=Debug")
         endif()
         
-        # Set runtime type based on
+        # Set runtime type based on BUILD_SHARED_LIBS value
         if (BUILD_SHARED_LIBS)
             set(conan_install_args "${conan_install_args};--settings:host;compiler.runtime=dynamic")
         else()
@@ -72,13 +85,6 @@ function(_get_install_args)
 endfunction()
 
 function(enable_conan)
-    # Check for a conanfile before doing any processing
-    find_file(CONAN_FILE_PATH NAMES conanfile.py conanfile.txt PATHS ${CMAKE_SOURCE_DIR} NO_DEFAULT_PATH)
-
-    if (NOT CONAN_FILE_PATH)
-        return()
-    endif()
-
     # Check for conan
     find_program(CONAN_PATH conan REQUIRED)
 
@@ -88,7 +94,7 @@ function(enable_conan)
         foreach (type ${CMAKE_CONFIGURATION_TYPES})
             _get_install_args(BUILD_TYPE "${type}" OUTPUT_VARIABLE conan_install_args)
             
-            # message("\nCommand: ${CONAN_PATH} ${conan_install_args}\n\n")
+            message("\nCommand: ${CONAN_PATH} ${conan_install_args}\n\n")
             execute_process(COMMAND ${CONAN_PATH} ${conan_install_args})
         endforeach ()
     else ()
@@ -103,22 +109,20 @@ function(enable_conan)
 endfunction()
 
 enable_conan()
-if(CONAN_TOOLCHAIN_FILE AND EXISTS ${CONAN_TOOLCHAIN_FILE})
-    include("${CONAN_TOOLCHAIN_FILE}")
-elseif(EXISTS "${CMAKE_BINARY_DIR}/conan_toolchain.cmake")
-    include("${CMAKE_BINARY_DIR}/conan_toolchain.cmake")
+
+set(_toolchain_path "${CMAKE_BINARY_DIR}/conan_toolchain.cmake")
+
+if(CONAN_TOOLCHAIN_FILE)
+    set(_path "${CONAN_TOOLCHAIN_FILE}")
+endif()
+
+if(EXISTS "${_toolchain_path}")
+    include("${_toolchain_path}")
 else()
-    set(_error "\nConan generated CMake toolchain file not found.\nSearched locations:")
-    file(REAL_PATH "${CMAKE_BINARY_DIR}/conan_toolchains.cmake" _default_toolchain EXPAND_TILDE)
-    file(REAL_PATH "${CONAN_TOOLCHAIN_FILE}" _real_toolchain EXPAND_TILDE)
-    string(TOLOWER "${_default_toolchain}" _default_toolchain)
-    string(TOLOWER "${_real_toolchain}" _real_toolchain)
-    if(CONAN_TOOLCHAIN_FILE AND NOT "${_default_toolchain}" STREQUAL "${_real_toolchain}")
-        string(APPEND _error "\n${CMAKE_BINARY_DIR}/conan_toolchain.cmake")
-    endif()
-    string(APPEND _error "\n${CONAN_TOOLCHAIN_FILE}")
+    set(_error "\nConan generated CMake toolchain file not found.\nSearched location:")
+    file(REAL_PATH "${_toolchain_path}" _real_toolchain EXPAND_TILDE)
+    string(APPEND _error "\n${_real_toolchain}")
     message(WARNING "${_error}")
     unset(_error)
     unset(_real_toolchain)
-    unset(_default_toolchain)
 endif()

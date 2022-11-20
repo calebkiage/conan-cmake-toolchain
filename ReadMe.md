@@ -22,8 +22,8 @@ $ cmake --build "./build/default" --config Release
 ```
 
 ## Available CMake Cache Variables
-`CONAN_FORCE_BUILD_PACKAGES`: Forces local building of packages. Useful for having local debug symbols in the Debug profile
+`CONAN_FORCE_BUILD_PACKAGES`: Forces local building of packages. Useful for having local debug symbols in the Debug profile. Example values `false` or `"OFF"`, `"<lib1>;<lib2>...<libn>"`
 
 `CONAN_<BUILD|HOST>_<CONF|PROFILE|SETTINGS>`: Translates to `--<conf|profile|settings>:<build|host>` command option. e.g. `CONAN_HOST_PROFILE` becomes `--profile:host`
 
-`CONAN_TOOLCHAIN_FILE`: The path to the generated conan toolchain file. If this is not defined, the default location is used.
+`CONAN_TOOLCHAIN_FILE`: The path to the generated conan toolchain file. If this is not defined, the default location (`${CMAKE_BINARY_DIR}/conan_toolchain.cmake`) is used.
