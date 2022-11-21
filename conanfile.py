@@ -16,5 +16,4 @@ class HelloConanCmake(ConanFile):
             self.options["*"].shared = True
 
     def imports(self):
-        if self.options.build_shared:
-            self.copy("*.dll", ".conan_imports/bin", "@bindirs")
+        self.copy("*.dll", ".conan_imports/bin", "@bindirs")
