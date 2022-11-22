@@ -9,5 +9,5 @@ int main() {
     return 0;
   }
 
-  fmt::print("Sodium is ready!");
+  fmt::print("Sodium is ready!\n");
 }

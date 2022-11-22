@@ -23,8 +23,10 @@ function(_get_install_args)
 
     set(conan_install_args "")
 
+    set(_conan_install_dir "${CMAKE_BINARY_DIR}/conan-install")
+
     # Use new conan cmake generators.
-    list(APPEND conan_install_args install ${CMAKE_SOURCE_DIR} --install-folder ${CMAKE_BINARY_DIR}/conan-install)
+    list(APPEND conan_install_args install ${CMAKE_SOURCE_DIR} --install-folder ${_conan_install_dir})
 
     if (BUILD_SHARED_LIBS)
         set(conan_install_args "${conan_install_args};--options:host;build_shared=True")

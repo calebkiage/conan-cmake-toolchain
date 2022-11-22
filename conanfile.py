@@ -16,4 +16,6 @@ class HelloConanCmake(ConanFile):
             self.options["*"].shared = True
 
     def imports(self):
-        self.copy("*.dll", ".conan_imports/bin", "@bindirs")
+        # Add this directory to PATH on Windows to allow running
+        # executables in the binary directory
+        self.copy("*.dll", f"bin/{self.settings.build_type}", "@bindirs")

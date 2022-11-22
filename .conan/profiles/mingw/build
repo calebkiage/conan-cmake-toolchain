@@ -3,7 +3,5 @@ include(base)
 # Build machine options go here
 
 [settings]
-os_build=Windows
-arch_build=x86_64
 
 [conf]
