@@ -3,9 +3,15 @@
 [settings]
 os=Windows
 arch=x86_64
+
+# Might be overriden by cmake toolchain
 build_type=Release
 compiler=msvc
 compiler.cppstd=14
+compiler.runtime=dynamic
+
+# Might be overriden by cmake toolchain
+compiler.runtime_type=Release
 compiler.version=191
 
 [conf]

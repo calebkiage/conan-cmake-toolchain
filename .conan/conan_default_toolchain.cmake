@@ -74,13 +74,6 @@ function(_get_install_args)
             set(conan_install_args "${conan_install_args};--settings:build;compiler.runtime_type=Debug")
             set(conan_install_args "${conan_install_args};--settings:host;compiler.runtime_type=Debug")
         endif()
-        
-        # Set runtime type based on BUILD_SHARED_LIBS value
-        if (BUILD_SHARED_LIBS)
-            set(conan_install_args "${conan_install_args};--settings:host;compiler.runtime=dynamic")
-        else()
-            set(conan_install_args "${conan_install_args};--settings:host;compiler.runtime=static")
-        endif()
     endif()
 
     set(${_ARG_OUTPUT_VARIABLE} "${conan_install_args}" PARENT_SCOPE)
