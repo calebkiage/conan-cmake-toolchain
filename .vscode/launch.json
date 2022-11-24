@@ -2,7 +2,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "(msvc) Launch Windows",
+            "name": "(msvc) Launch current config",
             "type": "cppvsdbg",
             "request": "launch",
             // Resolved by CMake Tools:
@@ -21,7 +21,7 @@
             "console": "internalConsole"
         },
         {
-            "name": "(gdb) Launch",
+            "name": "(gdb) Launch current config",
             "type": "cppdbg",
             "request": "launch",
             // Resolved by CMake Tools:
@@ -39,13 +39,13 @@
                 }
             ],
             "windows": {
-                "miDebuggerPath": "C:\\msys64\\mingw64\\bin\\gdb.exe",
+                "miDebuggerPath": "C:\\msys64\\ucrt64\\bin\\gdb.exe",
                 "environment": [
                     {
                         // add the conan binaries directory to the PATHs
                         // it gets resolved by CMake Tools:
                         "name": "PATH",
-                        "value": "${env:PATH};${command:cmake.buildDirectory}/conan-install/bin/${command:cmake.buildType}"
+                        "value": "C:\\msys64\\ucrt64\\bin;${env:PATH};${command:cmake.buildDirectory}/conan-install/bin/${command:cmake.buildType}"
                     }
                 ]
             }

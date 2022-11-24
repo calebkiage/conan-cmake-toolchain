@@ -1,7 +1,7 @@
 include(base)
 
 # Host machine options go here
-
+# The host profile defines the platform where the built binaries will run
 [settings]
 
 [conf]

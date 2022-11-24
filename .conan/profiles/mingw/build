@@ -1,6 +1,7 @@
 include(base)
 
 # Build machine options go here
+# The build profile defines the platform where the binaries will be built.
 
 [settings]
 
