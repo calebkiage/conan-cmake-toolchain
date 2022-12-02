@@ -7,6 +7,8 @@ if (NOT CONAN_FILE_PATH)
     return()
 endif()
 
+set(_conan_install_dir "${CMAKE_BINARY_DIR}/conan-install")
+
 function(_get_install_args)
     set(optionArgs "")
     set(oneValueArgs "BUILD_TYPE;OUTPUT_VARIABLE")
@@ -22,8 +24,6 @@ function(_get_install_args)
     endif()
 
     set(conan_install_args "")
-
-    set(_conan_install_dir "${CMAKE_BINARY_DIR}/conan-install")
 
     # Use new conan cmake generators.
     list(APPEND conan_install_args install ${CMAKE_SOURCE_DIR} --install-folder ${_conan_install_dir})
@@ -105,11 +105,9 @@ endfunction()
 
 enable_conan()
 
-set(_toolchain_path "${CMAKE_BINARY_DIR}/conan-install/conan_toolchain.cmake")
+set(_toolchain_path "${_conan_install_dir}/conan_toolchain.cmake")
 
-if(CONAN_TOOLCHAIN_FILE)
-    set(_path "${CONAN_TOOLCHAIN_FILE}")
-endif()
+unset(_conan_install_dir)
 
 if(EXISTS "${_toolchain_path}")
     include("${_toolchain_path}")
