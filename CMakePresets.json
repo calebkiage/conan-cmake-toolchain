@@ -14,6 +14,7 @@
             "toolchainFile": "${sourceDir}/.conan/conan_default_toolchain.cmake",
             "cacheVariables": {
                 "CONAN_FORCE_BUILD_PACKAGES": "OFF",
+                "CONAN_FORCE_INSTALL": false,
                 "CONAN_BUILD_PROFILE": "${sourceDir}/.conan/profiles/${presetName}/build",
                 "CONAN_HOST_PROFILE": "${sourceDir}/.conan/profiles/${presetName}/host",
                 "BUILD_SHARED_LIBS": true
@@ -53,7 +54,7 @@
                 "rhs": "Windows"
             },
             "environment": {
-                "CONAN_BASH_PATH": "C:\\msys64\\usr\\bin\\bash",
+                "CONAN_BASH_PATH": "C:\\msys64\\usr\\bin\\bash.exe",
                 "PATH": "C:\\msys64\\ucrt64\\bin;C:\\msys64\\usr\\bin;$penv{PATH}"
             }
         }
