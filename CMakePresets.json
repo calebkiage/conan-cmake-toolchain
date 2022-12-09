@@ -54,7 +54,6 @@
                 "rhs": "Windows"
             },
             "environment": {
-                "CONAN_BASH_PATH": "C:\\msys64\\usr\\bin\\bash.exe",
                 "PATH": "C:\\msys64\\ucrt64\\bin;C:\\msys64\\usr\\bin;$penv{PATH}"
             }
         }

@@ -40,10 +40,6 @@ function(_get_install_args)
   endif ()
   list(APPEND conan_install_args --build missing)
 
-  if (CMAKE_GENERATOR)
-    list(APPEND conan_install_args "--conf:host" "tools.cmake.cmaketoolchain:generator=${CMAKE_GENERATOR}")
-  endif ()
-
   set(machine_types "host;build")
 
   foreach (type ${machine_types})

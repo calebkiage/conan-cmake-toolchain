@@ -28,4 +28,4 @@ $ cmake --build "./build/default" --config Release
 
 `CONAN_TOOLCHAIN_FILE`: The path to the generated conan toolchain file. If this is not defined, the default location (`${CMAKE_BINARY_DIR}/conan_toolchain.cmake`) is used.
 
-`CONAN_FORCE_INSTALL`: Disable checking for changes to the conanfile before installing. The feature helps reduce configuration time for previously configured projects. It's especially useful in multi-configuration projects where installation happens for each configuration.
+`CONAN_FORCE_INSTALL`: Disable checking for changes to the conanfile before installing. The change detection feature helps reduce configuration time for previously configured projects. It's especially useful in multi-configuration projects where installation happens for each configuration. Enable this option if you get errors on using `find_package`

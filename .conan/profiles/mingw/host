@@ -5,3 +5,24 @@ include(base)
 [settings]
 
 [conf]
+# The following options fix issues with building on mingw.
+
+# Newer package recipes (libsodium, libcurl) check for bash path before adding
+# msys2/cci.latest
+# This option prevents recipes from adding the msys2/cci.latest build_require.
+# msys2/cci.latest which links libraries with msys-2.0.dll
+# MinGW packages built for windows shouldn't link to the msys runtime.
+# **Make sure the mingw build tools are in the path. If you need msys tools as
+# **well (e.g. for auto-tools), add them after the mingw path.
+tools.microsoft.bash:path=C:\\msys64\\usr\\bin\\bash.exe
+tools.microsoft.bash:subsystem=msys2
+
+# Uncomment if running conan install from within bash
+# tools.microsoft.bash:active=true
+
+# Env is deprecated (according to https://docs.conan.io/en/latest/reference/profiles.html),
+# but some recipes (e.g. openssl) use getenv to check for
+# CONAN_BASH_PATH then add msys2/cci.latest. buildenv, which is the recommended
+# alternative doesn't seem to work with these packages
+[env]
+CONAN_BASH_PATH=C:\\msys64\\usr\\bin\\bash.exe
