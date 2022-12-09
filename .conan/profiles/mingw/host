@@ -20,6 +20,10 @@ tools.microsoft.bash:subsystem=msys2
 # Uncomment if running conan install from within bash
 # tools.microsoft.bash:active=true
 
+# Uncomment to set a different cmake generator if mingw32-make isn't installed
+# and in your path.
+# tools.cmake.cmaketoolchain:generator=Ninja
+
 # Env is deprecated (according to https://docs.conan.io/en/latest/reference/profiles.html),
 # but some recipes (e.g. openssl) use getenv to check for
 # CONAN_BASH_PATH then add msys2/cci.latest. buildenv, which is the recommended
