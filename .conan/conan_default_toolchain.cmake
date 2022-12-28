@@ -52,7 +52,7 @@ function(_get_install_args)
       string(TOLOWER ${op} op_lower)
       string(TOUPPER ${op} op_upper)
 
-      # Allow setting options for conan in CMake. They use the form: 
+      # Allow setting options for conan in CMake. They use the form:
       # CONAN_{HOST|BUILD}_{PROFILE|SETTINGS|CONF}
       # Example: CONAN_HOST_PROFILE in CMakePresets.json
       if (CONAN_${type_upper}_${op_upper})
