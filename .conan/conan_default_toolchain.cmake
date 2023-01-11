@@ -12,9 +12,9 @@ set(_conan_install_dir "${CMAKE_BINARY_DIR}/conan-install")
 function(_get_install_args)
   set(optionArgs "")
   set(oneValueArgs "BUILD_TYPE;OUTPUT_VARIABLE")
-  set(miltiValueArgs "")
+  set(multiValueArgs "")
 
-  cmake_parse_arguments(_ARG "${optionsArgs}" "${oneValueArgs}" "${miltiValueArgs}" ${ARGV})
+  cmake_parse_arguments(_ARG "${optionsArgs}" "${oneValueArgs}" "${multiValueArgs}" ${ARGV})
 
   string(STRIP "${_ARG_BUILD_TYPE}" _build_type)
 
