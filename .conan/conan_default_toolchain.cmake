@@ -7,7 +7,7 @@ if (NOT CONAN_FILE_PATH)
   return()
 endif ()
 
-set(_conan_install_dir "${CMAKE_BINARY_DIR}/conan-install")
+set(_conan_output_dir "${CMAKE_BINARY_DIR}/conan-install")
 
 function(_get_install_args)
   set(optionArgs "")
@@ -26,7 +26,7 @@ function(_get_install_args)
   set(conan_install_args "")
 
   # Use new conan cmake generators.
-  list(APPEND conan_install_args install ${CMAKE_SOURCE_DIR} --install-folder ${_conan_install_dir})
+  list(APPEND conan_install_args install ${CMAKE_SOURCE_DIR} --output-folder ${_conan_output_dir})
 
   if (BUILD_SHARED_LIBS)
     set(conan_install_args "${conan_install_args};--options:host;build_shared=True")
@@ -83,7 +83,7 @@ function(_get_checksum_file_path file output_var)
     get_filename_component("${_file_name_var}" "${file}" NAME)
   endif ()
 
-  set("${output_var}" "${_conan_install_dir}/${${_file_name_var}}.sha256.txt" PARENT_SCOPE)
+  set("${output_var}" "${_conan_output_dir}/${${_file_name_var}}.sha256.txt" PARENT_SCOPE)
 endfunction()
 
 function(_verify_checksum file output_var)
@@ -160,9 +160,9 @@ endfunction()
 
 enable_conan()
 
-set(_toolchain_path "${_conan_install_dir}/conan_toolchain.cmake")
+set(_toolchain_path "${_conan_output_dir}/conan_toolchain.cmake")
 
-unset(_conan_install_dir)
+unset(_conan_output_dir)
 
 if (EXISTS "${_toolchain_path}")
   include("${_toolchain_path}")

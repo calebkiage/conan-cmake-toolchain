@@ -7,7 +7,6 @@ import os
 class HelloConanCmake(ConanFile):
     requires = ["fmt/9.1.0", "libsodium/1.0.18"]
     settings = "os", "compiler", "build_type", "arch"
-    generators = ["CMakeDeps", "CMakeToolchain"]
     options = {"build_shared": [False, True]}
     default_options = {"build_shared": False}
 
@@ -24,6 +23,7 @@ class HelloConanCmake(ConanFile):
     def generate(self):
         tc = CMakeToolchain(self)
         # Disable generating user presets file.
+        # Presets file is manually managed
         tc.user_presets_path = False
         tc.generate()
         cmake = CMakeDeps(self)
