@@ -14,7 +14,7 @@ function(_get_install_args)
   set(oneValueArgs "BUILD_TYPE;OUTPUT_VARIABLE")
   set(multiValueArgs "")
 
-  cmake_parse_arguments(_ARG "${optionsArgs}" "${oneValueArgs}" "${multiValueArgs}" ${ARGV})
+  cmake_parse_arguments(_ARG "${optionArgs}" "${oneValueArgs}" "${multiValueArgs}" ${ARGV})
 
   string(STRIP "${_ARG_BUILD_TYPE}" _build_type)
 
