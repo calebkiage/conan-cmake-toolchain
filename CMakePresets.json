@@ -12,6 +12,12 @@
             "generator": "Visual Studio 17 2022",
             "hidden": true,
             "toolchainFile": "${sourceDir}/.conan/conan_default_toolchain.cmake",
+            "toolset":{
+                "strategy": "external"
+            },
+            "architecture":{
+                "strategy": "external"
+            },
             "cacheVariables": {
                 "CONAN_FORCE_BUILD_PACKAGES": "OFF",
                 "CONAN_FORCE_INSTALL": false,
